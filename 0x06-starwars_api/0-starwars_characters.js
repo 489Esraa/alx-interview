@@ -22,4 +22,3 @@ if (process.argv.length > 2) {
       .then(names => console.log(names.join('\n')))
       .catch(allErr => console.log(allErr));
   });
-}
