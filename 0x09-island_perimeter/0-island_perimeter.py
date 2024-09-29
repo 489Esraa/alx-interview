@@ -1,27 +1,29 @@
 #!/usr/bin/python3
-"""Island Perimeter Problem
+"""
+Island Perimeter
 """
 
 
 def island_perimeter(grid):
+    """Computes the perimeter of an island with no lakes.
     """
-    Calculates the perimeter of the island described in grid
-    Args:
-        grid: 2d list of integers containing 0(water) or 1(land)
-    Return:
-        the perimeter of the island
-    """
+    visit = set()
 
-    p = 0
+    def dfs(i, j):
+        if i >= len(grid) or j >= len(grid[0]) or i < 0 or \
+           j < 0 or grid[i][j] == 0:
+            return 1
+        if (i, j) in visit:
+            return 0
+        visit.add((i, j))
+        perim = dfs(i, j + 1)
+        perim += dfs(i + 1, j)
+        perim += dfs(i, j - 1)
+        perim += dfs(i - 1, j)
+        return perim
+
     for i in range(len(grid)):
-        for j in range(len(grid[i])):
-            if (grid[i][j] == 1):
-                if (i <= 0 or grid[i - 1][j] == 0):
-                    p += 1
-                if (i >= len(grid) - 1 or grid[i + 1][j] == 0):
-                    p += 1
-                if (j <= 0 or grid[i][j - 1] == 0):
-                    p += 1
-                if (j >= len(grid[i]) - 1 or grid[i][j + 1] == 0):
-                    p += 1
-    return p
+        for j in range(len(grid[0])):
+            if grid[i][j]:
+                return dfs(i, j)
+    return 0
