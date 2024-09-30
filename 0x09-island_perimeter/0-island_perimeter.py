@@ -3,15 +3,19 @@
 Island Perimeter
 """
 
-
 def island_perimeter(grid):
-    """Computes the perimeter of an island with no lakes.
+    """
+    Computes the perimeter of an island with no lakes.
     """
     visit = set()
 
     def dfs(i, j):
-        if i >= len(grid) or j >= len(grid[0]) or i < 0 or \
-           j < 0 or grid[i][j] == 0:
+        """
+        Depth-first search function to calculate the perimeter.
+        """
+        if (i < 0 or i >= len(grid) or
+            j < 0 or j >= len(grid[0]) or
+            grid[i][j] == 0):
             return 1
         if (i, j) in visit:
             return 0
